@@ -4,18 +4,30 @@
     <div class="container">
         <div class="row">
             <p class="col-md-2">
-                © 2015 Life Coach.<br>
+                <?php echo get_option('coppy'); ?><br>
                 All rights reserved
             </p>
 
             <div class="col-md-7 navigation">
-                <ul class="nav navbar-nav">
+             <?php
+
+$defaults = array(
+	'theme_location'  => 'footer-menu',
+	'fallback_cb'     => 'wp_page_menu',
+	'items_wrap'      => '<ul class="nav navbar-nav">%3$s</ul>',
+	
+);
+
+wp_nav_menu( $defaults );
+
+?>
+                <!--<ul class="nav navbar-nav">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">What We Do</a></li>
                     <li><a href="#">Schedule</a></li>
                     <li><a href="#">Blog</a></li>
                     <li><a href="#">Contact Us</a></li>
-                </ul>
+                </ul>-->
             </div>
             <div class="col-md-3 social_links">
                 <ul class="nav navbar-nav">
@@ -23,13 +35,13 @@
                         <a href="#"><i class="fa fa-twitter"></i></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="<?php echo get_option('face'); ?>"><i class="fa fa-facebook"></i></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                        <a href="<?php echo get_option('pint'); ?>"><i class="fa fa-pinterest-p"></i></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="<?php echo get_option('inst'); ?>"><i class="fa fa-instagram"></i></a>
                     </li>
                 </ul>
             </div>

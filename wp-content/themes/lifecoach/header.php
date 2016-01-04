@@ -39,19 +39,31 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="#"><img src="<?php bloginfo('template_url');?>/img/logo.png" alt="My Life Wellbeing"></a>
+                            <a class="navbar-brand" href="<?php echo esc_url( home_url( '/' ) ); ?>"><img src="<?php bloginfo('template_url');?>/img/logo.png" alt="My Life Wellbeing"></a>
                         </div>
 
                         <div class="collapse navbar-collapse">
-                            <ul id="header_nav" class="nav navbar-nav">
+                        <?php
+
+$defaults = array(
+	
+	'fallback_cb'     => 'wp_page_menu',
+	'items_wrap'      => '<ul id="header_nav" class="nav navbar-nav">%3$s</ul>',
+	
+);
+
+wp_nav_menu( $defaults );
+
+?>
+                           <!-- <ul id="header_nav" class="nav navbar-nav">
                                 <li><a href="#home">Home</a></li>
                                 <li><a href="#about_us">What We Do</a></li>
                                 <li><a href="#testimonials">Schedule</a></li>
                                 <li><a href="#blog">Blog</a></li>
                                 <li><a href="#contact_us">Contact Us</a></li>
-                            </ul>
+                            </ul>-->
                             <div class="header_number">
-                                <i class="fa fa-phone"></i>051-945-3025
+                                <i class="fa fa-phone"></i><?php echo get_option('phone'); ?>
                             </div>
                         </div>
                     </div>

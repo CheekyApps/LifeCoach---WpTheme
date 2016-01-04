@@ -55,9 +55,23 @@
         <div class="container">
             <div class="row">
                 <h2><span>About Us</span></h2>
-
+ <?php
+                $args = array(
+	'post_type' => 'post',
+	'p' => '22'
+	
+);
+$the_query = new WP_Query( $args );
+//print_r($the_query);
+// The Loop
+if ( $the_query->have_posts() ) {
+	
+	while ( $the_query->have_posts() ) {
+		$the_query->the_post();
+		
+		?>
                 <div class="story_title">
-                    <h3>Their amazing story</h3>
+                    <h3><?php echo the_title(); ?></h3>
                     <span>How they to be so famous</span>
                 </div>
                 <div class="story">
@@ -74,6 +88,10 @@
                         labore et dolore magna aliqua. Ut enim ad minim
                     </p>
                 </div>
+                <?php
+	}}
+                wp_reset_postdata();
+?>
             </div>
         </div>
     </section>
@@ -161,63 +179,59 @@
                     <a class="btn" href="#">View all</a>
                 </div>
                 <div class="blog_articles">
-                    <div class="col-md-4 article">
+                <?php
+                $args = array(
+	'post_type' => 'post',
+	'posts_per_page' => '3',
+	'tax_query' => array(
+		
+		array(
+			'taxonomy' => 'category',
+			'field'    => 'slug',
+			'terms'    => array( 'blog' ),
+		)
+	),
+);
+$the_query = new WP_Query( $args );
+//print_r($the_query);
+// The Loop
+if ( $the_query->have_posts() ) {
+	
+	while ( $the_query->have_posts() ) {
+		$the_query->the_post();
+		?>
+		 <div class="col-md-4 article">
                         <figure>
-                            <img src="<?php bloginfo('template_url');?>/img/blog_img.png" alt="Blog image">
+                            <?php 
+if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
+	the_post_thumbnail();
+} 
+?>
                         </figure>
                         <h4>
-                            Concert tickets for sale
+                         <?php   echo the_title(); ?>
                         </h4>
                         <i>
-                            October 1, 2015
+                            <?php echo get_the_date(); ?>
                         </i>
 
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, enim ad minim veniam quis...
+                             <?php  echo the_content(); ?>
                         </p>
-                        <a class="btn" href="#">
+                        <a class="btn" href="<?php echo the_permalink(); ?>">
                             Read more
                         </a>
                     </div>
-                    <div class="col-md-4 article">
-                        <figure>
-                            <img src="<?php bloginfo('template_url');?>/img/blog_img.png" alt="Blog image">
-                        </figure>
-                        <h4>
-                            Concert tickets for sale
-                        </h4>
-                        <i>
-                            October 1, 2015
-                        </i>
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, enim ad minim veniam quis...
-                        </p>
-                        <a class="btn" href="#">
-                            Read more
-                        </a>
-                    </div>
-                    <div class="col-md-4 article">
-                        <figure>
-                            <img src="<?php bloginfo('template_url');?>/img/blog_img.png" alt="Blog image">
-                        </figure>
-                        <h4>
-                            Concert tickets for sale
-                        </h4>
-                        <i>
-                            October 1, 2015
-                        </i>
-
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, enim ad minim veniam quis...
-                        </p>
-                        <a class="btn" href="#">
-                            Read more
-                        </a>
-                    </div>
+					<?php
+		
+	}
+	
+} 
+/* Restore original Post Data */
+wp_reset_postdata();
+?>
+                   
+               
                 </div>
             </div>
         </div>
